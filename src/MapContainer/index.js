@@ -10,13 +10,30 @@ class MapContainer extends Component {
 	}
 	render(){
 		console.log(this.props.earthquakes, 'mc version');
+		const earthquakes = this.props.earthquakes.map((earthquake,i) => {
+			return (
+				<Marker
+					// key={i}
+					position={{
+						lat: earthquake.geometry.coordinates[1],
+						lng: earthquake.geometry.coordinates[0]
+					}}
+					icon={{
+						url: "https://i.imgur.com/xDAa0TO.png",
+          				scaledSize: {width: 40, height: 40}
+					}}
+				/>
+			)
+		})
 		return (
+			
 			<Map
 				google={this.props.google}
 				initialCenter={{lat: 41.878, lng: -87.630}}
           		zoom={8}
-          		style={{height: 175, width: 225}}
-			/>
+          		style={{height: 175, width: 225}}>
+          		{earthquakes}
+      		</Map>
 		)
 	}
 }
