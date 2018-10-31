@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import QuakeContainer from './QuakeContainer';
+import MapContainer from './MapContainer';
 
 const endPoint = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson'
 
@@ -6,7 +8,7 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      earthquakes: ''
+      earthquakes: []
     }
   }
 
@@ -23,7 +25,7 @@ class App extends Component {
   componentDidMount(){
     this.getEarthquakes().then((earthquakes) => {
       console.log(earthquakes, ' this is data');
-      this.setState({earthquakes: earthquakes});
+      this.setState({earthquakes: earthquakes.features});
     }).catch((err) => {
       console.log(err);
     })
@@ -33,11 +35,14 @@ class App extends Component {
     return (
       <div className="app">
         <div className="mapContainer">
-          ...put Map Component here...
+          <MapContainer
+            earthquakes={this.state.earthquakes}
+           />
         </div>
         <div className="quakeContainer">
-          <h1>Earthquakes from the past week: </h1>
-          ...put Quakes Component here...
+          <QuakeContainer
+            earthquakes={this.state.earthquakes}
+           />
         </div>
       </div>
     );
