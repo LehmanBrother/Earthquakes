@@ -13,7 +13,7 @@ class MapContainer extends Component {
 		const earthquakes = this.props.earthquakes.map((earthquake,i) => {
 			return (
 				<Marker
-					// key={i}
+					key={i}
 					position={{
 						lat: earthquake.geometry.coordinates[1],
 						lng: earthquake.geometry.coordinates[0]
@@ -31,13 +31,17 @@ class MapContainer extends Component {
 				google={this.props.google}
 				initialCenter={{lat: 41.878, lng: -87.630}}
           		zoom={8}
-          		style={{height: 175, width: 225}}>
+          		style={{height: '175px', width: '225px', position: 'relative'}}
+          	>
+          	
           		{earthquakes}
+      		
       		</Map>
 		)
 	}
 }
 
 export default GoogleApiWrapper({
-	apiKey: 'AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg'
+	apiKey: 'AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg',
+
 })(MapContainer)

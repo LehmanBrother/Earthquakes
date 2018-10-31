@@ -8,11 +8,23 @@ class QuakeContainer extends Component {
 		}
 	}
 	render(){
-		console.log(this.props.earthquakes, 'qc version');
-		console.log(this.props.earthquakes.features, 'qc version');
+		const currentTime = Date.now();
+		const magnitudeColor = (mag) => {
+			if(mag < 5) {
+				return 'yellow'
+			} else if(mag < 6) {
+				return 'orange'
+			} else {
+				return 'red'
+			}
+		}
 		const earthquakes = this.props.earthquakes.map((earthquake,i) => {
 			return (
-				<p key={i}>{earthquake.properties.title}</p>
+				<div key={i}>
+					<p>{earthquake.properties.title.split(' ')[earthquake.properties.title.split(' ').length-2] + ' ' + earthquake.properties.title.split(' ')[earthquake.properties.title.split(' ').length-1]}</p>
+					<p>{parseInt((currentTime - earthquake.properties.time)/3600000)} hours ago</p>
+					<p className={magnitudeColor(earthquake.properties.mag)}>.</p>
+				</div>
 			)
 		})
 		return (
